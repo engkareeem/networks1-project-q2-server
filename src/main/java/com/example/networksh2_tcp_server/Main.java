@@ -17,7 +17,14 @@ public class Main extends Application {
         stage.show();
     }
 
+
     public static void main(String[] args) {
-        launch();
+        MyFileReader fileReader = new MyFileReader();
+        System.out.println(fileReader.users.size());
+        System.out.println(fileReader.login("koko111", "123123", "12", "2314").getDescription());
+        fileReader = null;
+        fileReader = new MyFileReader();
+        System.out.println(fileReader.users.size());
+//        launch();
     }
 }

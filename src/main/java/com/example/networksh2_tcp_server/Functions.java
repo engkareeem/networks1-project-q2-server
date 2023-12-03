@@ -1,29 +1,22 @@
 package com.example.networksh2_tcp_server;
 
-import javafx.application.Platform;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
+
+import java.io.*;
+
 import java.net.SocketException;
 import java.io.IOException;
 import java.net.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
+
 import java.util.Enumeration;
 
 public class Functions {
+
+    public static MyFileReader fileReader = new MyFileReader();
+
     public static ArrayList<String> getInterfaces(){
         ArrayList<String> interfaces = new ArrayList<>();
 
@@ -49,4 +42,39 @@ public class Functions {
         }
         return interfaces;
     }
+
+
+
+
+    public static void sendTCP(String message, User user) {
+
+        try {
+            Socket socket = new Socket(user.ip, Integer.parseInt(user.port));
+
+            DataOutputStream outputStream = new DataOutputStream(
+                    socket.getOutputStream());
+
+            outputStream.writeUTF(message);
+            outputStream.close();
+            socket.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void broadcastActiveUsers() {
+        StringBuilder message = new StringBuilder("CMD@Notify");
+        for(User user: MyFileReader.users) {
+            message.append(String.format("@%s:%s:%s", user.username, user.ip, user.port));
+        }
+        for(User user: MyFileReader.users) {
+            sendTCP(message.toString(),user);
+        }
+    }
+    public static void changeStatus(String text, String ip, String port) {
+        TextArea textArea = (TextArea) Controller.currentStage.getScene().lookup("#statusArea");
+        textArea.setText(text + " IP = " + ip + ", Port = " + port);
+    }
+
+
 }
