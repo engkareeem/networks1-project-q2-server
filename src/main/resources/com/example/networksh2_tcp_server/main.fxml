@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.networksh2_tcp_server.Controller">
+   <children>
+      <Button fx:id="listeningButton" layoutX="238.0" layoutY="31.0" mnemonicParsing="false" onAction="#listeningButtonClicked" prefHeight="19.0" prefWidth="90.0" text="Start listening" />
+      <Label layoutX="41.0" layoutY="34.0" text="Port:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="listeningPortField" layoutX="72.0" layoutY="31.0" />
+      <ComboBox fx:id="interfacesComboBox" layoutX="41.0" layoutY="80.0" prefHeight="26.0" prefWidth="318.0" />
+      <TextArea fx:id="onlineUsersArea" editable="false" layoutX="407.0" layoutY="57.0" prefHeight="370.0" prefWidth="226.0" />
+      <TextArea fx:id="statusHistoryArea" editable="false" layoutX="41.0" layoutY="152.0" prefHeight="275.0" prefWidth="342.0" />
+      <TextArea fx:id="statusArea" editable="false" layoutX="87.0" layoutY="446.0" prefHeight="39.0" prefWidth="534.0" />
+      <Label layoutX="28.0" layoutY="452.0" text="Status:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
