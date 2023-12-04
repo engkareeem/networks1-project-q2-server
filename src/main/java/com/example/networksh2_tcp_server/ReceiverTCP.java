@@ -7,9 +7,9 @@ import java.net.*;
 
 public class ReceiverTCP {
     private static int listeningPort;
-    private static ServerSocket serverSocket;
+    public static ServerSocket serverSocket;
 
-    private static Thread mainThread;
+    public static Thread mainThread;
 
     static {
         try {
@@ -61,7 +61,7 @@ public class ReceiverTCP {
                             LoginStatus status = Functions.fileReader.login(username,password,ip,port);
                             if(status == LoginStatus.LOGIN_SUCCESS || status == LoginStatus.USER_CREATED) {
                                 Functions.broadcastActiveUsers();
-                                Functions.changeStatus(String.format("%s:%s:%s",username,ip,port) + " Connected");
+                                Functions.changeStatus(String.format("%s:%s:%s",username,ip,port) + " Has Connected");
                             }
                             Functions.sendStatus(status,ip,port);
 
@@ -69,7 +69,7 @@ public class ReceiverTCP {
                             String username = msg.split("@")[1];
                             Functions.fileReader.logout(username);
                             Functions.broadcastActiveUsers();
-                            Functions.changeStatus(String.format("%s",username) + " Disconnected");
+                            Functions.changeStatus(String.format("%s",username) + " Has disconnected");
                         }
 
                         inputStream.close();

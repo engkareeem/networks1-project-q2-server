@@ -8,6 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -40,7 +41,7 @@ public class Controller implements Initializable {
         ReceiverTCP.init();
     }
 
-    public void listeningButtonClicked() {
+    public void listeningButtonClicked() throws IOException {
         if(!isListening) {
             if(!listeningPortField.getText().isEmpty()) {
                 int port = Integer.parseInt(listeningPortField.getText());
@@ -50,8 +51,9 @@ public class Controller implements Initializable {
             }
         } else {
 
-            // TODO: Turn off listening here
-
+            ReceiverTCP.mainThread.interrupt();
+            ReceiverTCP.serverSocket.close();
+            Functions.changeStatus("Listening stopped.");
             listeningButton.setText("Start Listening");
             isListening = false;
         }

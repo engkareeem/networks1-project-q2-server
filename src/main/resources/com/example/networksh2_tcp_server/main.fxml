@@ -19,7 +19,7 @@
       <TextField fx:id="listeningPortField" layoutX="72.0" layoutY="31.0" />
       <ComboBox fx:id="interfacesComboBox" layoutX="41.0" layoutY="80.0" prefHeight="26.0" prefWidth="318.0" />
       <TextArea fx:id="onlineUsersArea" editable="false" layoutX="407.0" layoutY="57.0" prefHeight="370.0" prefWidth="226.0" />
-      <TextArea fx:id="statusHistoryArea" editable="false" layoutX="41.0" layoutY="125.0" prefHeight="275.0" prefWidth="342.0" />
+      <TextArea fx:id="statusHistoryArea" editable="false" layoutX="14.0" layoutY="124.0" prefHeight="275.0" prefWidth="382.0" />
       <TextArea fx:id="statusArea" editable="false" layoutX="87.0" layoutY="446.0" prefHeight="39.0" prefWidth="534.0" />
       <Label layoutX="28.0" layoutY="452.0" text="Status:">
          <font>

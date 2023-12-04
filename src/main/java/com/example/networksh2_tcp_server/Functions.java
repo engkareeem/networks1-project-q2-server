@@ -9,8 +9,10 @@ import java.io.*;
 import java.net.SocketException;
 import java.io.IOException;
 import java.net.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import java.util.Date;
 import java.util.Enumeration;
 
 public class Functions {
@@ -94,7 +96,9 @@ public class Functions {
         TextArea statusArea = (TextArea) Controller.currentStage.getScene().lookup("#statusArea");
         TextArea historyArea = (TextArea) Controller.currentStage.getScene().lookup("#statusHistoryArea");
         statusArea.setText(text);
-        historyArea.appendText(text + "\n");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("h:mm a"); // DD for date, E for day name
+
+        historyArea.appendText(dateFormat.format(new Date().getTime())+ ": " +text + "\n");
 
     }
 
