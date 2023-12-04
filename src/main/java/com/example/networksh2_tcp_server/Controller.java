@@ -17,7 +17,7 @@ public class Controller implements Initializable {
     @FXML
     ComboBox<String> interfacesComboBox;
     @FXML
-    TextArea onlineUsersArea,statusArea;
+    TextArea onlineUsersArea,statusArea,statusHistoryArea;
     @FXML
     Button listeningButton;
 
@@ -55,7 +55,9 @@ public class Controller implements Initializable {
             listeningButton.setText("Start Listening");
             isListening = false;
         }
-
+    }
+    public void clearButtonClicked() {
+        statusHistoryArea.clear();
     }
 
 
