@@ -33,6 +33,7 @@ public class Controller implements Initializable {
                 listeningPortField.setText(oldValue);
             }
         });
+        ReceiverTCP.init();
     }
 
     public void listeningButtonClicked() {

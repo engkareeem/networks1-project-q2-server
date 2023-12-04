@@ -29,7 +29,6 @@ public class Functions {
                 NetworkInterface networkInterface = networkInterfaces.nextElement();
                 if(networkInterface.getInetAddresses().hasMoreElements()){
                     String interfaceAddress = networkInterface.getInetAddresses().nextElement().getHostAddress();
-                    System.out.println(interfaceAddress);
                     String name = networkInterface.getName().replaceAll("wlan\\d*", "Wi-Fi").replaceAll("lo\\d*", "LocalHost").replaceAll("eth\\d*", "Ethernet");
                     if(interfaceAddress.matches("\\d+.\\d+.\\d+.\\d+")){
                         interfaces.add(name + ": " + interfaceAddress);
@@ -49,6 +48,7 @@ public class Functions {
     public static void sendTCP(String message, User user) {
 
         try {
+            System.out.println(message + " " + user);
             Socket socket = new Socket(user.ip, Integer.parseInt(user.port));
 
             DataOutputStream outputStream = new DataOutputStream(
@@ -80,10 +80,12 @@ public class Functions {
         TextArea onlineUsersArea = (TextArea) Controller.currentStage.getScene().lookup("#onlineUsersArea");
         onlineUsersArea.setText("");
         for(User user: MyFileReader.users) {
+            if(!user.isOnline()) continue;
             message.append("@").append(user);
             onlineUsersArea.appendText(user + "\n");
         }
         for(User user: MyFileReader.users) {
+            if(!user.isOnline()) continue;
             sendTCP(message.toString(),user);
         }
 

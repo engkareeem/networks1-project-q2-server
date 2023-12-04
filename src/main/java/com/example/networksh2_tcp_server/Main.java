@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static java.lang.System.exit;
+
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
@@ -15,16 +17,18 @@ public class Main extends Application {
         stage.setTitle("TCPServer");
         stage.setScene(scene);
         stage.show();
+        Controller.currentStage = stage;
+        stage.setOnCloseRequest(event -> {
+            try {
+                exit(0);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
 
     public static void main(String[] args) {
-        MyFileReader fileReader = new MyFileReader();
-        System.out.println(fileReader.users.size());
-        System.out.println(fileReader.login("koko111", "123123", "12", "2314").getDescription());
-        fileReader = null;
-        fileReader = new MyFileReader();
-        System.out.println(fileReader.users.size());
-//        launch();
+        launch();
     }
 }

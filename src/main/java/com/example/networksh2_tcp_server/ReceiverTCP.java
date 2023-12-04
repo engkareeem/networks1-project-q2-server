@@ -51,7 +51,7 @@ public class ReceiverTCP {
                         DataInputStream inputStream = new DataInputStream(
                                 new BufferedInputStream(socket.getInputStream()));
                         String msg = inputStream.readUTF();
-
+                        System.out.println(msg);
                         if(msg.contains("login")) {
                             String username = msg.split("@")[1];
                             String password = msg.split("@")[2];

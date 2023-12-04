@@ -27,6 +27,7 @@ public class MyFileReader {
                 if(user.password.equalsIgnoreCase(password)){
                     user.ip = ip;
                     user.port = port;
+                    user.online = true;
                     return LoginStatus.LOGIN_SUCCESS;
                 }else{
                     return LoginStatus.WRONG_PASSWORD;
@@ -89,13 +90,14 @@ class User {
     public String ip;
 
     public String port;
+    public boolean online;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
         ip = "NONE";
         port = "NONE";
-
+        online = false;
     }
 
     public User(String username, String password, String ip, String port) {
@@ -103,6 +105,10 @@ class User {
         this.password = password;
         this.ip = ip;
         this.port = port;
+        this.online = true;
+    }
+    public boolean isOnline() {
+        return online;
     }
 
     @Override
