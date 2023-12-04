@@ -28,6 +28,7 @@ public class ReceiverTCP {
         if(port == listeningPort) return;
         listeningPort = port;
         try {
+            System.out.println("test");
             mainThread.interrupt();
             serverSocket.close();
             serverSocket = new ServerSocket(listeningPort);
@@ -37,9 +38,16 @@ public class ReceiverTCP {
             throw new RuntimeException(e);
         }
     }
+    public static void stopPort() throws IOException {
+        listeningPort = -1;
+        mainThread.interrupt();
+        serverSocket.close();
+        Functions.changeStatus("Listening stopped.");
+    }
 
 
     public static void receiveTCP() {
+        if(serverSocket.isClosed()) init();
 
         while (!Thread.interrupted()) {
             Socket socket;
