@@ -44,10 +44,15 @@ public class Controller implements Initializable {
     public void listeningButtonClicked() throws IOException {
         if(!isListening) {
             if(!listeningPortField.getText().isEmpty()) {
-                // TODO: Start listening
+                int port = Integer.parseInt(listeningPortField.getText());
+                ReceiverTCP.updatePort(port);
+                listeningButton.setText("Stop Listening");
+                isListening = true;
             }
         } else {
-            // TODO: Close the socket
+            ReceiverTCP.stopPort();
+            listeningButton.setText("Start Listening");
+            isListening = false;
         }
     }
     public void clearButtonClicked() {
