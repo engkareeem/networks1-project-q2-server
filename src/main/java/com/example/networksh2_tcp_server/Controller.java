@@ -2,6 +2,7 @@ package com.example.networksh2_tcp_server;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -17,7 +18,10 @@ public class Controller implements Initializable {
     ComboBox<String> interfacesComboBox;
     @FXML
     TextArea onlineUsersArea,statusArea;
+    @FXML
+    Button listeningButton;
 
+    public boolean isListening = false;
     public static Stage currentStage;
 
     @Override
@@ -37,10 +41,21 @@ public class Controller implements Initializable {
     }
 
     public void listeningButtonClicked() {
-        if(!listeningPortField.getText().isEmpty()) {
-            int port = Integer.parseInt(listeningPortField.getText());
-            ReceiverTCP.updatePort(port);
+        if(!isListening) {
+            if(!listeningPortField.getText().isEmpty()) {
+                int port = Integer.parseInt(listeningPortField.getText());
+                ReceiverTCP.updatePort(port);
+                listeningButton.setText("Stop Listening");
+                isListening = true;
+            }
+        } else {
+
+            // TODO: Turn off listening here
+
+            listeningButton.setText("Start Listening");
+            isListening = false;
         }
+
     }
 
 
