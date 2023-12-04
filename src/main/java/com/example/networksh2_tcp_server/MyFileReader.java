@@ -103,8 +103,10 @@ class User {
         this.password = password;
         this.ip = ip;
         this.port = port;
-
     }
 
-
+    @Override
+    public String toString() {
+        return String.format("%s:%s:%s", this.username,this.ip,this.port);
+    }
 }

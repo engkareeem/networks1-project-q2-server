@@ -36,7 +36,6 @@ public class Controller implements Initializable {
     }
 
     public void listeningButtonClicked() {
-
         if(!listeningPortField.getText().isEmpty()) {
             int port = Integer.parseInt(listeningPortField.getText());
             ReceiverTCP.updatePort(port);

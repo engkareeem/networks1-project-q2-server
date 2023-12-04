@@ -1,7 +1,5 @@
 package com.example.networksh2_tcp_server;
 
-import javafx.application.Platform;
-
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -34,6 +32,7 @@ public class ReceiverTCP {
             serverSocket.close();
             serverSocket = new ServerSocket(listeningPort);
             init();
+            Functions.changeStatus("Start listening to port " + port);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -59,21 +58,19 @@ public class ReceiverTCP {
                             String ip       = msg.split("@")[3];
                             String port     = msg.split("@")[4];
 
-                            LoginStatus success = Functions.fileReader.login(username,password,ip,port);
-                            if(success == LoginStatus.LOGIN_SUCCESS || success == LoginStatus.USER_CREATED) {
+                            LoginStatus status = Functions.fileReader.login(username,password,ip,port);
+                            if(status == LoginStatus.LOGIN_SUCCESS || status == LoginStatus.USER_CREATED) {
                                 Functions.broadcastActiveUsers();
-                                // TODO: Login success (OK)
-                            } else {
-                                // TODO: Login error
+                                Functions.changeStatus(String.format("%s:%s:%s",username,ip,port) + " Connected");
                             }
+                            Functions.sendStatus(status,ip,port);
+
                         } else if(msg.contains("logout")) {
                             String username = msg.split("@")[1];
                             Functions.fileReader.logout(username);
                             Functions.broadcastActiveUsers();
-                        } else {
-                            // TODO: Bad request
+                            Functions.changeStatus(String.format("%s",username) + " Disconnected");
                         }
-
 
                         inputStream.close();
                         socket.close();

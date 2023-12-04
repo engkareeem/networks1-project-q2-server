@@ -62,18 +62,38 @@ public class Functions {
         }
     }
 
+    public static void sendStatus(LoginStatus status,String ip, String port) {
+        User user = new User("","",ip,port);
+        if(status == LoginStatus.WRONG_PASSWORD) {
+            sendTCP("CMD@Error@The entered password is wrong",user);
+        } else if(status == LoginStatus.LOGIN_SUCCESS) {
+            sendTCP("CMD@Success@Login successful",user);
+        } else if(status == LoginStatus.USER_CREATED) {
+            sendTCP("CMD@Success@User Registered",user);
+        } else {
+            sendTCP("CMD@Error@Bad Request", user);
+        }
+    }
+
     public static void broadcastActiveUsers() {
         StringBuilder message = new StringBuilder("CMD@Notify");
+        TextArea onlineUsersArea = (TextArea) Controller.currentStage.getScene().lookup("#onlineUsersArea");
+        onlineUsersArea.setText("");
         for(User user: MyFileReader.users) {
-            message.append(String.format("@%s:%s:%s", user.username, user.ip, user.port));
+            message.append("@").append(user);
+            onlineUsersArea.appendText(user + "\n");
         }
         for(User user: MyFileReader.users) {
             sendTCP(message.toString(),user);
         }
+
     }
-    public static void changeStatus(String text, String ip, String port) {
-        TextArea textArea = (TextArea) Controller.currentStage.getScene().lookup("#statusArea");
-        textArea.setText(text + " IP = " + ip + ", Port = " + port);
+    public static void changeStatus(String text) {
+        TextArea statusArea = (TextArea) Controller.currentStage.getScene().lookup("#statusArea");
+        TextArea historyArea = (TextArea) Controller.currentStage.getScene().lookup("#statusHistoryArea");
+        statusArea.setText(text);
+        historyArea.appendText(text + "\n");
+
     }
 
 
